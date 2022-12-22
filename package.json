@@ -1,0 +1,24 @@
+{
+  "name": "my-eth-starter",
+  "author": "@nezz0746",
+  "license": "MIT",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "yarn workspace my-eth-starter-frontend-project dev",
+    "build": "yarn workspace my-eth-starter-frontend-project build",
+    "start": "yarn workspace my-eth-starter-frontend-project start",
+    "ipfs": "yarn workspace my-eth-starter-frontend-project ipfs",
+    "chain": "yarn workspace my-eth-starter-hardhat-project chain",
+    "deploy": "yarn workspace my-eth-starter-hardhat-project deploy",
+    "deploy:goerli": "yarn workspace my-eth-starter-hardhat-project deploy:goerli",
+    "deploy:mainnet": "yarn workspace my-eth-starter-hardhat-project deploy:mainnet",
+    "compile": "yarn workspace my-eth-starter-hardhat-project compile",
+    "clean": "yarn workspace my-eth-starter-hardhat-project clean"
+  },
+  "workspaces": {
+    "packages": [
+      "./packages/*"
+    ]
+  }
+}

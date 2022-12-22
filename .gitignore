@@ -1,0 +1,6 @@
+node_modules
+.env
+.env.*
+.envrc
+packages/frontend/.next
+.DS_Store

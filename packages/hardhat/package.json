@@ -1,0 +1,40 @@
+{
+  "name": "my-eth-starter-hardhat-project",
+  "author": "@nezz0746",
+  "license": "MIT",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^3.0.0",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/hardhat-upgrades": "^1.10.0",
+    "@typechain/ethers-v5": "^7.0.1",
+    "@typechain/hardhat": "^2.2.0",
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.4.3",
+    "chai": "^4.3.4",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.4.2",
+    "hardhat": "^2.5.0",
+    "hardhat-gas-reporter": "^1.0.7",
+    "merkletreejs": "^0.2.27",
+    "ts-node": "^10.1.0",
+    "typechain": "^5.1.2",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "clean": "NODE_ENV=rinkeby npx hardhat clean; rm -rf .openzeppelin",
+    "chain": "npx hardhat node",
+    "compile": "NODE_ENV=rinkeby npx hardhat compile",
+    "deploy": "NODE_ENV=localhost npx hardhat run scripts/deploy.ts --network localhost",
+    "deploy:goerli": "NODE_ENV=goerli npx hardhat run scripts/deploy.ts --network goerli",
+    "deploy:mainnet": "NODE_ENV=mainnet npx hardhat run scripts/deploy.ts --network mainnet"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.2.0",
+    "@openzeppelin/contracts-upgradeable": "^4.3.2",
+    "dotenv": "^10.0.0",
+    "keccak256": "^1.0.6"
+  }
+}

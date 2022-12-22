@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "OwnableDelegateProxy",
+  "sourceName": "contracts/ERC721Tradable.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220d66468a33d66a930e2e76a104f23788bf14b0a8a7ec20bc0bfa0de2efe3508dd64736f6c63430008020033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220d66468a33d66a930e2e76a104f23788bf14b0a8a7ec20bc0bfa0de2efe3508dd64736f6c63430008020033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
