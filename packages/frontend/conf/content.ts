@@ -1,6 +1,6 @@
 export const siteTitle = 'Toys by 0xTechno';
 export const siteTagline = 'Limited collection of toys';
-export const siteDescription = 'Toys by 0xTechno is a limited collection of NFTs'; 
+export const siteDescription = 'Toys by 0xTechno is a limited collection of NFTs';
 
 export const heroTagline = siteTagline;
 export const heroDescription = siteDescription;

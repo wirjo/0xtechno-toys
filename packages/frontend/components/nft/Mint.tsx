@@ -39,6 +39,7 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
     priceInWei: useReadContract(contract, 'fixedPrice'),
     maxByMint: useReadContract(contract, 'maxByMint') as number,
     salePublicIsActive: useReadContract(contract, 'salePublicIsActive'),
+    totalSupply: useReadContract(contract, 'totalSupply'),
     totalPublicSupply: useReadContract(contract, 'totalPublicSupply'),
     maxPublicSupply: useReadContract(contract, 'maxPublicSupply'),
     daoAddress: useReadContract(contract, 'daoAddress'),
@@ -153,7 +154,7 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
 
         <div className="md:flex justify-center items-center gap-10 my-12">
           <div className="flex justify-center max-w-screen-xs">
-            <SaleShowcase />
+            <SaleShowcase id={sale.totalSupply} />
           </div>
 
           <div className="flex flex-col justify-center w-xs text-center px-10">

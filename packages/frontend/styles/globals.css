@@ -8,7 +8,7 @@
 body {
   font-family: 'Source Sans Pro', serif;
   font-weight: 300 !important;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   color: #000;
 }
 
@@ -28,15 +28,17 @@ body {
 }
 
 #section-faq a,
-#section-about a, footer a {
-    text-decoration: underline;
+#section-about a,
+footer a {
+  text-decoration: underline;
 }
 
 #section-faq a:hover,
-#section-about a:hover, footer a:hover {
-    background: #000;
-    color: #FFF;
-    text-decoration: none;
+#section-about a:hover,
+footer a:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
 }
 
 .content p {

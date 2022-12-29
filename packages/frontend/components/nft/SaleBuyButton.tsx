@@ -13,11 +13,11 @@ const SaleBuyButton = ({
 }): JSX.Element => {
   const { account } = useEthers();
 
-  if(!account)
+  if (!account)
     return (
-        <div className="text-3xl">
-            <ConnectWallet />
-        </div>
+      <div className="text-3xl">
+        <ConnectWallet />
+      </div>
     );
 
   // Configure button style

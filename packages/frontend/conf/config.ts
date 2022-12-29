@@ -11,9 +11,9 @@ const chains: ChainId[] = [ChainId.Mainnet, ChainId.Rinkeby];
 export const allowedChains: ChainId[] = chains;
 
 export const rpcUrls = {
-    [ChainId.Mainnet]: 'https://eth-mainnet.alchemyapi.io/v2/' + ALCHEMY_KEY,
-    [ChainId.Goerli]: 'https://eth-goerli.g.alchemy.com/v2/' + ALCHEMY_KEY,
-    [ChainId.Localhost]: 'http://localhost:8545',
+  [ChainId.Mainnet]: 'https://eth-mainnet.alchemyapi.io/v2/' + ALCHEMY_KEY,
+  [ChainId.Goerli]: 'https://eth-goerli.g.alchemy.com/v2/' + ALCHEMY_KEY,
+  [ChainId.Localhost]: 'http://localhost:8545',
 };
 
 export const getDappConfig = (chainId: number): Config => ({
