@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const Section = (): JSX.Element => {
   const questions = [
-      /*
+    /*
     {
       question: 'What are NFTs?',
       answer:
@@ -20,14 +20,13 @@ const Section = (): JSX.Element => {
     */
 
     {
-        question: "What the heck are Toys?",
-        answer: "Gonks are a collection of NFTs."
+      question: 'What the heck are Toys?',
+      answer: 'Toys by 0xTechno are a collection of NFTs.',
     },
     {
-        question: "Sure, but what are NFTs?",
-        answer: `NFTs stands for "Non-Fungible Tokens". Probably best to google it.`,
+      question: 'Sure, but what are NFTs?',
+      answer: `NFTs stands for "Non-Fungible Tokens". Probably best to google it.`,
     },
-    
   ];
 
   const [accordionExpand, setAccordionExpand] = useState('');
@@ -59,31 +58,29 @@ const Section = (): JSX.Element => {
 
   return (
     <>
-    <section id="section-about" className="bg-white border-t-8 border-b-8 border-black">
+      <section id="section-about" className="bg-white border-t-8 border-b-8 border-black">
         <div className="container max-w-screen-lg mx-auto text-center py-20 px-5">
-            <div className="mb-3 text-3xl font-bold uppercase">
-                <b>Toys by 0xTechno</b>
-            </div>
-            <div className="mx-auto text-center">
-                    Toys by 0xTechno is a limited collection of NFTs.
-            </div>
-        </div>
-    </section>
-    <section id="section-faq" className="overflow-hidden">
-      <div className="container max-w-screen-lg mx-auto text-center pt-20 px-5">
-        <div className="text-3xl font-bold">
-            FAQ
-        </div>
-
-        <div className="grid grid-cols-1 gap-5 my-8">
-          <div className="text-left">
-            {_.map(questions, (q, key) => (
-              <AccordionItem key={`faq-${key}`} identifier={`faq-${key}`} q={q} />
-            ))}
+          <div className="mb-3 text-3xl font-bold uppercase">
+            <b>Toys by 0xTechno</b>
+          </div>
+          <div className="mx-auto text-center">
+            Toys by 0xTechno is a limited collection of NFTs.
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section id="section-faq" className="overflow-hidden">
+        <div className="container max-w-screen-lg mx-auto text-center pt-20 px-5">
+          <div className="text-3xl font-bold">FAQ</div>
+
+          <div className="grid grid-cols-1 gap-5 my-8">
+            <div className="text-left">
+              {_.map(questions, (q, key) => (
+                <AccordionItem key={`faq-${key}`} identifier={`faq-${key}`} q={q} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
