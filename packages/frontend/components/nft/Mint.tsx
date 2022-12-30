@@ -24,7 +24,7 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
    * Declare React States
    */
   const [inputDisabled, setInputDisabled] = useState(false);
-  const [numberToMint, setNumberToMint] = useState(1);
+  const [numberToMint, setNumberToMint] = useState(2);
   const [errorMessage, setErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
   const { account } = useEthers();
