@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import _ from 'lodash';
 import { useState } from 'react';
 // import Image from 'next/image';
-// import { openseaUrl, twitterUrl } from '../conf/content';
+import { nftDescription } from '../conf/content';
 
 const Section = (): JSX.Element => {
   const questions = [
@@ -63,9 +63,7 @@ const Section = (): JSX.Element => {
           <div className="mb-3 text-3xl font-bold uppercase">
             <b>Toys by 0xTechno</b>
           </div>
-          <div className="mx-auto text-center">
-            Toys by 0xTechno is a limited collection of NFTs.
-          </div>
+          <div className="mx-auto text-center">{nftDescription}</div>
         </div>
       </section>
       <section id="section-faq" className="overflow-hidden">

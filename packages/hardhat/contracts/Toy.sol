@@ -25,12 +25,12 @@ contract Toy is ERC721Tradable {
         string memory _symbol,
         address _proxyRegistryAddress
     ) ERC721Tradable(_name, _symbol, _proxyRegistryAddress) {
-        maxByMint = 10;
-        maxSupply = 600;
-        maxReservedSupply = 50;  
+        maxByMint = 2;
+        maxSupply = 576;
+        maxReservedSupply = 10;  
         maxPublicSupply = maxSupply - maxReservedSupply;
         fixedPrice = 0.1 ether;
-        daoAddress = 0xF86a588f3604e3b12899f710E3D572F76ffB94B8;
+        daoAddress = 0x8A09928a0623155F0554F42427e27b8EE88411fB;
         baseTokenURI = "https://toys.0xtechno.art/api/toys/meta/";
     }
 

@@ -37,8 +37,8 @@ export default async function handler(req: Request, res: Response): Promise<any>
     name: `${nftName} #${tokenIdNumber}`,
     description: nftDescription,
     image: `https://${renderedStorageBucket}/${tokenIdNumber}.png`,
-    animation_url: WEBSITE_HOST_URL + '/api/toys/live/' + tokenIdNumber,
-    external_url: WEBSITE_HOST_URL + '/api/toys/live/' + tokenIdNumber,
+    animation_url: WEBSITE_HOST_URL + 'api/toys/live/' + tokenIdNumber,
+    external_url: WEBSITE_HOST_URL + 'api/toys/live/' + tokenIdNumber,
     attributes: nftMetadataJson,
     library: 'p5js@1.0.0',
   };
@@ -63,7 +63,7 @@ export const validTokenIdNumber = async (
 ): Promise<number | false> => {
   const tokenIdNumber = parseInt(tokenId as string);
 
-  if (isLocal) return tokenIdNumber;
+  if (isLocal || !contract) return tokenIdNumber;
 
   // Get token
   let tokenIdHasOwner = false;
@@ -79,7 +79,7 @@ export const validTokenIdNumber = async (
 
 export const tokenSoldOut = async (contract: Contract): Promise<boolean> => {
   const totalSupply = contract.totalSupply();
-  if (totalSupply >= 269) {
+  if (totalSupply >= 576) {
     return true;
   } else {
     return false;

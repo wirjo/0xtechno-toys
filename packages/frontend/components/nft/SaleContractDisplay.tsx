@@ -9,7 +9,7 @@ const SaleContractDisplay = ({
   daoAddress?: string;
 }): JSX.Element => {
   const { currentNetworkChainId } = useTypedSelector((state) => state.app);
-  const etherscanSubDomain = currentNetworkChainId == ChainId.Rinkeby ? 'rinkeby.' : '';
+  const etherscanSubDomain = currentNetworkChainId == ChainId.Goerli ? 'goerli.' : '';
   const etherscanBaseUrl = `https://${etherscanSubDomain}etherscan.io/address/`;
   const network = currentNetworkChainId == 1 ? 'Mainnet' : 'Testnet';
 

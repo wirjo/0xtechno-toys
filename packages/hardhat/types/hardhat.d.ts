@@ -57,30 +57,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ProxyRegistry__factory>;
     getContractFactory(
-      name: "Fuzz",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Fuzz__factory>;
-    getContractFactory(
-      name: "Gonk",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Gonk__factory>;
-    getContractFactory(
-      name: "Lazarus",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Lazarus__factory>;
-    getContractFactory(
-      name: "MasFashion",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MasFashion__factory>;
-    getContractFactory(
-      name: "MasPass",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MasPass__factory>;
-    getContractFactory(
-      name: "PolyGonk",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.PolyGonk__factory>;
-    getContractFactory(
       name: "Toy",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Toy__factory>;
@@ -140,36 +116,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ProxyRegistry>;
-    getContractAt(
-      name: "Fuzz",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Fuzz>;
-    getContractAt(
-      name: "Gonk",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Gonk>;
-    getContractAt(
-      name: "Lazarus",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Lazarus>;
-    getContractAt(
-      name: "MasFashion",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.MasFashion>;
-    getContractAt(
-      name: "MasPass",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.MasPass>;
-    getContractAt(
-      name: "PolyGonk",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.PolyGonk>;
     getContractAt(
       name: "Toy",
       address: string,
