@@ -68,7 +68,7 @@ export const validTokenIdNumber = async (
 ): Promise<number | false> => {
   const tokenIdNumber = parseInt(tokenId as string);
 
-  if (isLocal || !contract) return tokenIdNumber;
+  if (isLocal || !contract || (tokenIdNumber >= 0 && tokenIdNumber <= 10)) return tokenIdNumber;
 
   // Get token
   let tokenIdHasOwner = false;
