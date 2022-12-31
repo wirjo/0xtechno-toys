@@ -2,16 +2,20 @@
 pragma solidity ^0.8.0;
 import "./ERC721Tradable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 contract Toy is ERC721Tradable {
+    bytes32 public merkleRoot = 0x9caffec5b91ddb1ce9f1ff51be0c888f5ee4b477ea2e45c16f0fe448f3176c4d;
     bool public salePublicIsActive;
-    uint256 public maxByMint;
-    uint256 public maxSupply;
-    uint256 public maxPublicSupply;
-    uint256 public maxReservedSupply;
-    uint256 public fixedPrice;
-    address public daoAddress;
+    bool public saleWhitelistIsActive = true;
+    uint256 public maxByMint = 1;
+    uint256 public maxSupply = 576;
+    uint256 public maxPublicSupply = 566;
+    uint256 public maxReservedSupply = 10;
+    uint256 public fixedPrice = 0.09 ether;
+    address public daoAddress = 0x8A09928a0623155F0554F42427e27b8EE88411fB;
     string internal baseTokenURI;
+    
     using Counters for Counters.Counter;
     Counters.Counter private _totalPublicSupply;
     Counters.Counter private _totalReservedSupply;
@@ -19,18 +23,15 @@ contract Toy is ERC721Tradable {
     mapping(uint256 => string) public generativeArtScript;
     mapping(uint256 => bytes32) public tokenIdToHash;
     mapping(bytes32 => uint256) public hashToTokenId;
+
+    mapping(uint256 => bytes32) public reservedHashes;
+    mapping(address => bool) internal whitelistClaimed;
     
     constructor(
         string memory _name,
         string memory _symbol,
         address _proxyRegistryAddress
     ) ERC721Tradable(_name, _symbol, _proxyRegistryAddress) {
-        maxByMint = 2;
-        maxSupply = 576;
-        maxReservedSupply = 10;  
-        maxPublicSupply = maxSupply - maxReservedSupply;
-        fixedPrice = 0.1 ether;
-        daoAddress = 0x8A09928a0623155F0554F42427e27b8EE88411fB;
         baseTokenURI = "https://toys.0xtechno.art/api/toys/meta/";
     }
 
@@ -56,12 +57,34 @@ contract Toy is ERC721Tradable {
         _mintN(numberOfTokens);
     }
 
-    function mintReserved(address _to, uint numberOfTokens) external onlyOwner {
-        require(_totalReservedSupply.current() + numberOfTokens <= maxReservedSupply, "Max supply reached");
-        for(uint i = 0; i < numberOfTokens; i++) {
+     function mintWhitelist(uint numberOfTokens, bytes32[] calldata _merkleProof) external payable {
+        require(saleWhitelistIsActive, "Whitelist sale not active");
+        require(!whitelistClaimed[msg.sender], "Address has already claimed");
+        bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+        require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Must be whitelisted");
+        require(fixedPrice * numberOfTokens <= msg.value, "Eth val incorrect");
+        whitelistClaimed[msg.sender] = true;
+        _mintN(numberOfTokens);
+    }
+
+    function mintReserved(address _to) external onlyOwner {
+        reservedHashes[1] = 0x7b9e21444ee73cfd3d25cf62e4ca68550a17aab016b226cdb932541985f880f2;
+        reservedHashes[2] = 0xeed1273ba39c57f40c5c07d87467b56eb64f5fa95b2c73a8bc922814e90b9f4f;
+        reservedHashes[3] = 0x480b72ddca5cde3320258758f80f8dfd7ab944081952c2b74849b29627954eeb;
+        reservedHashes[4] = 0xa68846590d66797ee4c3e68f41ffbda5544d52f40577eee13b73ce3bf58b6d47;
+        reservedHashes[5] = 0x5b24363b957b314383046e544950a72bca4fbb5e6198390692f20b601e1f3509;
+        reservedHashes[6] = 0x2fe24637ce210f1e30576f07b5e496b4783f2f44ea2a1f106a210ea07a087ad8;
+        reservedHashes[7] = 0x53069495c19b713865d6e6050a5e49b7d68710a455d47bb59637188651e35b01;
+        reservedHashes[8] = 0xec614b914d6d9773bd358cdcebce20e2ada5a0d6ddf13e5c61b2de823ee3a0d7;
+        reservedHashes[9] = 0xde971ca1432adc37756ad9a1e08aaef3efe1a996bfe86765b52795c10865c771;
+        reservedHashes[10] = 0x10b1d3dd751b818b2ed7b4d5af413466acf933645e9e94f28c81d2d90dfb64c4;
+        for(uint256 i = 1; i <= 10; i++) {
             _totalReservedSupply.increment();
-            _setHash(this.totalSupply());
-            _safeMint(_to, this.totalSupply());
+            bytes32 hash;
+            hash = reservedHashes[i];
+            tokenIdToHash[i]=hash;
+            hashToTokenId[hash]=i;
+            _safeMint(_to, i);
         }
     }
 
@@ -85,6 +108,10 @@ contract Toy is ERC721Tradable {
         salePublicIsActive = !salePublicIsActive;
     }
 
+    function flipSaleWhitelistStatus() external onlyOwner {
+        saleWhitelistIsActive = !saleWhitelistIsActive;
+    }
+
     function setDaoAddress(address _daoAddress) external onlyOwner {
         daoAddress = _daoAddress;
     }
@@ -99,12 +126,6 @@ contract Toy is ERC721Tradable {
 
     function setMaxByMint(uint256 _maxByMint) external onlyOwner {
         maxByMint = _maxByMint;
-    }
-
-    function setSupply(uint256 _maxSupply, uint256 _maxReservedSupply) external onlyOwner {
-        maxSupply = _maxSupply;
-        maxReservedSupply = _maxReservedSupply;
-        maxPublicSupply = _maxSupply - _maxReservedSupply;
     }
 
     function withdraw() external onlyOwner {
@@ -140,6 +161,14 @@ contract Toy is ERC721Tradable {
         hash = _generateRandomHash(tokenIdToBe);
         tokenIdToHash[tokenIdToBe]=hash;
         hashToTokenId[hash]=tokenIdToBe;
+    }
+
+    function setMerkleRoot(bytes32 _merkleRoot) external onlyOwner { 
+        merkleRoot = _merkleRoot;
+    }
+
+    function isWhitelistClaimed(address _address) public view returns (bool) {
+        return whitelistClaimed[_address];
     }
 
 }

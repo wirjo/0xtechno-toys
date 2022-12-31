@@ -24,7 +24,7 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
    * Declare React States
    */
   const [inputDisabled, setInputDisabled] = useState(false);
-  const [numberToMint, setNumberToMint] = useState(2);
+  const [numberToMint, setNumberToMint] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
   const { account } = useEthers();
@@ -44,10 +44,10 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
     totalPublicSupply: useReadContract(contract, 'totalPublicSupply'),
     maxPublicSupply: useReadContract(contract, 'maxPublicSupply'),
     daoAddress: useReadContract(contract, 'daoAddress'),
-    saleWhitelistIsActive: false,
-    isWhitelistClaimed: false,
-    // saleWhitelistIsActive: useReadContract(contract, 'saleWhitelistIsActive'),
-    // isWhitelistClaimed: useReadContract(contract, 'isWhitelistClaimed', [account]),
+    // saleWhitelistIsActive: false,
+    // isWhitelistClaimed: false,
+    saleWhitelistIsActive: useReadContract(contract, 'saleWhitelistIsActive'),
+    isWhitelistClaimed: useReadContract(contract, 'isWhitelistClaimed', [account]),
     whitelistProof: '',
     status: {},
   };

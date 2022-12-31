@@ -30,6 +30,7 @@ interface ToyInterface extends ethers.utils.Interface {
     "executeMetaTransaction(address,bytes,bytes32,bytes32,uint8)": FunctionFragment;
     "fixedPrice()": FunctionFragment;
     "flipSalePublicStatus()": FunctionFragment;
+    "flipSaleWhitelistStatus()": FunctionFragment;
     "generativeArtScript(uint256)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "getChainId()": FunctionFragment;
@@ -37,26 +38,31 @@ interface ToyInterface extends ethers.utils.Interface {
     "getNonce(address)": FunctionFragment;
     "hashToTokenId(bytes32)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
+    "isWhitelistClaimed(address)": FunctionFragment;
     "maxByMint()": FunctionFragment;
     "maxPublicSupply()": FunctionFragment;
     "maxReservedSupply()": FunctionFragment;
     "maxSupply()": FunctionFragment;
+    "merkleRoot()": FunctionFragment;
     "mintPublic(uint256)": FunctionFragment;
-    "mintReserved(address,uint256)": FunctionFragment;
+    "mintReserved(address)": FunctionFragment;
+    "mintWhitelist(uint256,bytes32[])": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
     "proxyRegistryAddress()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "reservedHashes(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "salePublicIsActive()": FunctionFragment;
+    "saleWhitelistIsActive()": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setBaseTokenURI(string)": FunctionFragment;
     "setDaoAddress(address)": FunctionFragment;
     "setFixedPrice(uint256)": FunctionFragment;
     "setMaxByMint(uint256)": FunctionFragment;
+    "setMerkleRoot(bytes32)": FunctionFragment;
     "setProxyRegistryAddress(address)": FunctionFragment;
-    "setSupply(uint256,uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "tokenIdToHash(uint256)": FunctionFragment;
@@ -100,6 +106,10 @@ interface ToyInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "flipSaleWhitelistStatus",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "generativeArtScript",
     values: [BigNumberish]
   ): string;
@@ -124,6 +134,10 @@ interface ToyInterface extends ethers.utils.Interface {
     functionFragment: "isApprovedForAll",
     values: [string, string]
   ): string;
+  encodeFunctionData(
+    functionFragment: "isWhitelistClaimed",
+    values: [string]
+  ): string;
   encodeFunctionData(functionFragment: "maxByMint", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "maxPublicSupply",
@@ -135,12 +149,20 @@ interface ToyInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "maxSupply", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "merkleRoot",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "mintPublic",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "mintReserved",
-    values: [string, BigNumberish]
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "mintWhitelist",
+    values: [BigNumberish, BytesLike[]]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
@@ -157,11 +179,19 @@ interface ToyInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "reservedHashes",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "safeTransferFrom",
     values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "salePublicIsActive",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "saleWhitelistIsActive",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -185,12 +215,12 @@ interface ToyInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setProxyRegistryAddress",
-    values: [string]
+    functionFragment: "setMerkleRoot",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "setSupply",
-    values: [BigNumberish, BigNumberish]
+    functionFragment: "setProxyRegistryAddress",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
@@ -252,6 +282,10 @@ interface ToyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "flipSaleWhitelistStatus",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "generativeArtScript",
     data: BytesLike
   ): Result;
@@ -273,6 +307,10 @@ interface ToyInterface extends ethers.utils.Interface {
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "isWhitelistClaimed",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "maxByMint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "maxPublicSupply",
@@ -283,9 +321,14 @@ interface ToyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "maxSupply", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "merkleRoot", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mintPublic", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "mintReserved",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "mintWhitelist",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
@@ -300,11 +343,19 @@ interface ToyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "reservedHashes",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "safeTransferFrom",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "salePublicIsActive",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "saleWhitelistIsActive",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -328,10 +379,13 @@ interface ToyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "setMerkleRoot",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "setProxyRegistryAddress",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "setSupply", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
@@ -488,6 +542,10 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    flipSaleWhitelistStatus(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     generativeArtScript(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -518,6 +576,11 @@ export class Toy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    isWhitelistClaimed(
+      _address: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     maxByMint(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     maxPublicSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -526,6 +589,8 @@ export class Toy extends BaseContract {
 
     maxSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    merkleRoot(overrides?: CallOverrides): Promise<[string]>;
+
     mintPublic(
       numberOfTokens: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -533,8 +598,13 @@ export class Toy extends BaseContract {
 
     mintReserved(
       _to: string,
-      numberOfTokens: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    mintWhitelist(
+      numberOfTokens: BigNumberish,
+      _merkleProof: BytesLike[],
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
@@ -552,6 +622,11 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    reservedHashes(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     "safeTransferFrom(address,address,uint256)"(
       from: string,
       to: string,
@@ -568,6 +643,8 @@ export class Toy extends BaseContract {
     ): Promise<ContractTransaction>;
 
     salePublicIsActive(overrides?: CallOverrides): Promise<[boolean]>;
+
+    saleWhitelistIsActive(overrides?: CallOverrides): Promise<[boolean]>;
 
     setApprovalForAll(
       operator: string,
@@ -595,14 +672,13 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setProxyRegistryAddress(
-      _proxyRegistryAddress: string,
+    setMerkleRoot(
+      _merkleRoot: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setSupply(
-      _maxSupply: BigNumberish,
-      _maxReservedSupply: BigNumberish,
+    setProxyRegistryAddress(
+      _proxyRegistryAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -681,6 +757,10 @@ export class Toy extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  flipSaleWhitelistStatus(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   generativeArtScript(
     arg0: BigNumberish,
     overrides?: CallOverrides
@@ -705,6 +785,11 @@ export class Toy extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  isWhitelistClaimed(
+    _address: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   maxByMint(overrides?: CallOverrides): Promise<BigNumber>;
 
   maxPublicSupply(overrides?: CallOverrides): Promise<BigNumber>;
@@ -713,6 +798,8 @@ export class Toy extends BaseContract {
 
   maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
+  merkleRoot(overrides?: CallOverrides): Promise<string>;
+
   mintPublic(
     numberOfTokens: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -720,8 +807,13 @@ export class Toy extends BaseContract {
 
   mintReserved(
     _to: string,
-    numberOfTokens: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  mintWhitelist(
+    numberOfTokens: BigNumberish,
+    _merkleProof: BytesLike[],
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   name(overrides?: CallOverrides): Promise<string>;
@@ -735,6 +827,11 @@ export class Toy extends BaseContract {
   renounceOwnership(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  reservedHashes(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   "safeTransferFrom(address,address,uint256)"(
     from: string,
@@ -752,6 +849,8 @@ export class Toy extends BaseContract {
   ): Promise<ContractTransaction>;
 
   salePublicIsActive(overrides?: CallOverrides): Promise<boolean>;
+
+  saleWhitelistIsActive(overrides?: CallOverrides): Promise<boolean>;
 
   setApprovalForAll(
     operator: string,
@@ -779,14 +878,13 @@ export class Toy extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setProxyRegistryAddress(
-    _proxyRegistryAddress: string,
+  setMerkleRoot(
+    _merkleRoot: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setSupply(
-    _maxSupply: BigNumberish,
-    _maxReservedSupply: BigNumberish,
+  setProxyRegistryAddress(
+    _proxyRegistryAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -857,6 +955,8 @@ export class Toy extends BaseContract {
 
     flipSalePublicStatus(overrides?: CallOverrides): Promise<void>;
 
+    flipSaleWhitelistStatus(overrides?: CallOverrides): Promise<void>;
+
     generativeArtScript(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -884,6 +984,11 @@ export class Toy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    isWhitelistClaimed(
+      _address: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     maxByMint(overrides?: CallOverrides): Promise<BigNumber>;
 
     maxPublicSupply(overrides?: CallOverrides): Promise<BigNumber>;
@@ -892,14 +997,18 @@ export class Toy extends BaseContract {
 
     maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
+    merkleRoot(overrides?: CallOverrides): Promise<string>;
+
     mintPublic(
       numberOfTokens: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    mintReserved(
-      _to: string,
+    mintReserved(_to: string, overrides?: CallOverrides): Promise<void>;
+
+    mintWhitelist(
       numberOfTokens: BigNumberish,
+      _merkleProof: BytesLike[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -912,6 +1021,11 @@ export class Toy extends BaseContract {
     proxyRegistryAddress(overrides?: CallOverrides): Promise<string>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
+    reservedHashes(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: string,
@@ -929,6 +1043,8 @@ export class Toy extends BaseContract {
     ): Promise<void>;
 
     salePublicIsActive(overrides?: CallOverrides): Promise<boolean>;
+
+    saleWhitelistIsActive(overrides?: CallOverrides): Promise<boolean>;
 
     setApprovalForAll(
       operator: string,
@@ -956,14 +1072,13 @@ export class Toy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setProxyRegistryAddress(
-      _proxyRegistryAddress: string,
+    setMerkleRoot(
+      _merkleRoot: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setSupply(
-      _maxSupply: BigNumberish,
-      _maxReservedSupply: BigNumberish,
+    setProxyRegistryAddress(
+      _proxyRegistryAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1131,6 +1246,10 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    flipSaleWhitelistStatus(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     generativeArtScript(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -1158,6 +1277,11 @@ export class Toy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    isWhitelistClaimed(
+      _address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     maxByMint(overrides?: CallOverrides): Promise<BigNumber>;
 
     maxPublicSupply(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1166,6 +1290,8 @@ export class Toy extends BaseContract {
 
     maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
+    merkleRoot(overrides?: CallOverrides): Promise<BigNumber>;
+
     mintPublic(
       numberOfTokens: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -1173,8 +1299,13 @@ export class Toy extends BaseContract {
 
     mintReserved(
       _to: string,
-      numberOfTokens: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    mintWhitelist(
+      numberOfTokens: BigNumberish,
+      _merkleProof: BytesLike[],
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1190,6 +1321,11 @@ export class Toy extends BaseContract {
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    reservedHashes(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -1208,6 +1344,8 @@ export class Toy extends BaseContract {
     ): Promise<BigNumber>;
 
     salePublicIsActive(overrides?: CallOverrides): Promise<BigNumber>;
+
+    saleWhitelistIsActive(overrides?: CallOverrides): Promise<BigNumber>;
 
     setApprovalForAll(
       operator: string,
@@ -1235,14 +1373,13 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setProxyRegistryAddress(
-      _proxyRegistryAddress: string,
+    setMerkleRoot(
+      _merkleRoot: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setSupply(
-      _maxSupply: BigNumberish,
-      _maxReservedSupply: BigNumberish,
+    setProxyRegistryAddress(
+      _proxyRegistryAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1325,6 +1462,10 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    flipSaleWhitelistStatus(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     generativeArtScript(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -1357,6 +1498,11 @@ export class Toy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    isWhitelistClaimed(
+      _address: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     maxByMint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     maxPublicSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1365,6 +1511,8 @@ export class Toy extends BaseContract {
 
     maxSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    merkleRoot(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     mintPublic(
       numberOfTokens: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -1372,8 +1520,13 @@ export class Toy extends BaseContract {
 
     mintReserved(
       _to: string,
-      numberOfTokens: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    mintWhitelist(
+      numberOfTokens: BigNumberish,
+      _merkleProof: BytesLike[],
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1393,6 +1546,11 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    reservedHashes(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     "safeTransferFrom(address,address,uint256)"(
       from: string,
       to: string,
@@ -1409,6 +1567,10 @@ export class Toy extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     salePublicIsActive(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    saleWhitelistIsActive(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1438,14 +1600,13 @@ export class Toy extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setProxyRegistryAddress(
-      _proxyRegistryAddress: string,
+    setMerkleRoot(
+      _merkleRoot: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setSupply(
-      _maxSupply: BigNumberish,
-      _maxReservedSupply: BigNumberish,
+    setProxyRegistryAddress(
+      _proxyRegistryAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
