@@ -40,6 +40,7 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
     maxByMint: useReadContract(contract, 'maxByMint') as number,
     salePublicIsActive: useReadContract(contract, 'salePublicIsActive'),
     totalSupply: useReadContract(contract, 'totalSupply'),
+    maxSupply: useReadContract(contract, 'maxSupply'),
     totalPublicSupply: useReadContract(contract, 'totalPublicSupply'),
     maxPublicSupply: useReadContract(contract, 'maxPublicSupply'),
     daoAddress: useReadContract(contract, 'daoAddress'),

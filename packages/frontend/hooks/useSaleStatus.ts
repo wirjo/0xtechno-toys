@@ -4,6 +4,8 @@ const useSaleStatus = (sale: any): Record<string, boolean | number> => {
     saleWhitelistIsActive,
     whitelistProof,
     isWhitelistClaimed,
+    totalSupply,
+    maxSupply,
     totalPublicSupply,
     maxPublicSupply,
   } = sale;
@@ -15,7 +17,7 @@ const useSaleStatus = (sale: any): Record<string, boolean | number> => {
     isWhitelistClaimed: saleWhitelistIsActive && isWhitelistClaimed,
     isSoldOut: parseInt(totalPublicSupply) >= parseInt(maxPublicSupply),
     saleRemaining: (parseInt(maxPublicSupply) - parseInt(totalPublicSupply)) as number,
-    saleProgress: ((parseInt(totalPublicSupply) / parseInt(maxPublicSupply)) * 100) as number,
+    saleProgress: ((parseInt(totalSupply) / parseInt(maxSupply)) * 100) as number,
   };
 
   return saleStatus;
