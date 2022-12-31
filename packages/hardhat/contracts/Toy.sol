@@ -73,7 +73,7 @@ contract Toy is ERC721Tradable {
         _mintN(numberOfTokens);
     }
 
-     function mintWhitelist(uint numberOfTokens, bytes32[] calldata _merkleProof) external payable {
+    function mintWhitelist(uint numberOfTokens, bytes32[] calldata _merkleProof) external payable {
         require(saleWhitelistIsActive, "Whitelist sale not active");
         require(!whitelistClaimed[msg.sender], "Address has already claimed");
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender));

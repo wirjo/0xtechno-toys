@@ -27,7 +27,7 @@ const contractConfig: Record<number, { nft?: string }> = {
     nft: '0x97e544d87840fa59Fb0d57eE0d80c3484858Ff82',
   },
   [ChainId.Mainnet]: {
-    nft: '0xeebcfae1beac14c1ab908a7613cc9a5bbeccbd97',
+    nft: '0xeb7088423d7f8c1448ef074fc372bc67efa4de44',
   },
 };
 
