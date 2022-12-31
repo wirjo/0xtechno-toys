@@ -9,7 +9,9 @@ const Section = (): JSX.Element => {
           <DappSocial />
         </div>
       </div>
-      <div className="text-xs my-5 max-w-screen-md mx-auto">{footerDisclaimer}</div>
+      <div className="text-xs my-5 max-w-screen-md mx-auto text-white opacity-70">
+        {footerDisclaimer}
+      </div>
     </footer>
   );
 };
