@@ -12,9 +12,10 @@ import {
 /**
  * Constants & Helpers
  */
-const HOST_URL = process.env.NEXT_PUBLIC_VERCEL_ENV
+const HOST_URL = process.env.NEXT_PUBLIC_VERCEL_URL
   ? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL
   : 'http://localhost:3000';
+
 export const WEBSITE_HOST_URL =
   process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? siteUrl : HOST_URL;
 

@@ -45,7 +45,6 @@ interface ToyInterface extends ethers.utils.Interface {
     "maxSupply()": FunctionFragment;
     "merkleRoot()": FunctionFragment;
     "mintPublic(uint256)": FunctionFragment;
-    "mintReserved(address)": FunctionFragment;
     "mintWhitelist(uint256,bytes32[])": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
@@ -58,6 +57,7 @@ interface ToyInterface extends ethers.utils.Interface {
     "saleWhitelistIsActive()": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setBaseTokenURI(string)": FunctionFragment;
+    "setCuratedHash(uint256,bytes32)": FunctionFragment;
     "setDaoAddress(address)": FunctionFragment;
     "setFixedPrice(uint256)": FunctionFragment;
     "setMaxByMint(uint256)": FunctionFragment;
@@ -157,10 +157,6 @@ interface ToyInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "mintReserved",
-    values: [string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "mintWhitelist",
     values: [BigNumberish, BytesLike[]]
   ): string;
@@ -201,6 +197,10 @@ interface ToyInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "setBaseTokenURI",
     values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setCuratedHash",
+    values: [BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "setDaoAddress",
@@ -324,10 +324,6 @@ interface ToyInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "merkleRoot", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mintPublic", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "mintReserved",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "mintWhitelist",
     data: BytesLike
   ): Result;
@@ -364,6 +360,10 @@ interface ToyInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setBaseTokenURI",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setCuratedHash",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -596,11 +596,6 @@ export class Toy extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    mintReserved(
-      _to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     mintWhitelist(
       numberOfTokens: BigNumberish,
       _merkleProof: BytesLike[],
@@ -654,6 +649,12 @@ export class Toy extends BaseContract {
 
     setBaseTokenURI(
       _baseTokenURI: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setCuratedHash(
+      tokenId: BigNumberish,
+      _hash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -805,11 +806,6 @@ export class Toy extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  mintReserved(
-    _to: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   mintWhitelist(
     numberOfTokens: BigNumberish,
     _merkleProof: BytesLike[],
@@ -860,6 +856,12 @@ export class Toy extends BaseContract {
 
   setBaseTokenURI(
     _baseTokenURI: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setCuratedHash(
+    tokenId: BigNumberish,
+    _hash: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1004,8 +1006,6 @@ export class Toy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    mintReserved(_to: string, overrides?: CallOverrides): Promise<void>;
-
     mintWhitelist(
       numberOfTokens: BigNumberish,
       _merkleProof: BytesLike[],
@@ -1054,6 +1054,12 @@ export class Toy extends BaseContract {
 
     setBaseTokenURI(
       _baseTokenURI: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setCuratedHash(
+      tokenId: BigNumberish,
+      _hash: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1297,11 +1303,6 @@ export class Toy extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    mintReserved(
-      _to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     mintWhitelist(
       numberOfTokens: BigNumberish,
       _merkleProof: BytesLike[],
@@ -1355,6 +1356,12 @@ export class Toy extends BaseContract {
 
     setBaseTokenURI(
       _baseTokenURI: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setCuratedHash(
+      tokenId: BigNumberish,
+      _hash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1518,11 +1525,6 @@ export class Toy extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    mintReserved(
-      _to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     mintWhitelist(
       numberOfTokens: BigNumberish,
       _merkleProof: BytesLike[],
@@ -1582,6 +1584,12 @@ export class Toy extends BaseContract {
 
     setBaseTokenURI(
       _baseTokenURI: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setCuratedHash(
+      tokenId: BigNumberish,
+      _hash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

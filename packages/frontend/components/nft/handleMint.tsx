@@ -14,7 +14,7 @@ const handleMint = async (
   maxByMint: number,
   proof?: string,
 ): Promise<void> => {
-  // const safeGasLimitPerMint = 250000;
+  const safeGasLimitPerMint = 160000;
 
   if (numberToMint > maxByMint) {
     return handleMintError(`You can only mint ${maxByMint} at a time.`);
@@ -24,7 +24,7 @@ const handleMint = async (
 
   const options = {
     value: utils.parseEther(price).mul(numberToMint),
-    // gasLimit: safeGasLimitPerMint * numberToMint,
+    gasLimit: safeGasLimitPerMint * numberToMint,
     maxFeePerGas: ethers.utils.parseUnits('25', 'gwei'),
     maxPriorityFeePerGas: ethers.utils.parseUnits('2.5', 'gwei'),
   };

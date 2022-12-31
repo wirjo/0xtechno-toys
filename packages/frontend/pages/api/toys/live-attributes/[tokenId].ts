@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { tokenContract, validTokenIdNumber } from '../meta/[tokenId]';
+import { tokenContract, validTokenIdNumber } from '../meta-v1/[tokenId]';
 import { nftDefaultHash } from '../live/[tokenId]';
 
 export default async function handler(req: Request, res: Response): Promise<any> {

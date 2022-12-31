@@ -1,8 +1,4 @@
 import { Request, Response } from 'express';
-import ToyArtifact from '../../../../artifacts/contracts/Toy.sol/Toy.json';
-import { isProduction, isLocal, rpcUrls } from '../../../../conf/config';
-import contractConfig from '../../../../conf/config';
-import { ethers, Contract } from 'ethers';
 import { nftDescription, nftName } from '../../../../conf/content';
 import { WEBSITE_HOST_URL } from '../../../../components/layout/Head';
 import { renderedStorageBucket } from '../render/[tokenId]';
@@ -12,12 +8,10 @@ export default async function handler(req: Request, res: Response): Promise<any>
     query: { tokenId },
   } = req;
 
-  // Connect to blockchain
-  const contract = tokenContract();
-
   // Validate token
-  const tokenIdNumber = await validTokenIdNumber(tokenId, contract);
-  if (tokenIdNumber === false) return res.status(404).send('Invalid token ID');
+  const tokenIdNumber = parseInt(tokenId as string);
+  const validTokenIdNumber = tokenIdNumber >= 0 && tokenIdNumber <= 10;
+  if (!validTokenIdNumber) return res.status(404).send('Invalid token ID');
 
   // Get the token hash
   // const hash = await contract.tokenIdToHash(tokenIdNumber).then();
@@ -39,7 +33,7 @@ export default async function handler(req: Request, res: Response): Promise<any>
   }
 
   const data = {
-    name: `${nftName} #${tokenIdNumber}`,
+    name: `${nftName} #${tokenIdNumber} (Legacy)`,
     description: nftDescription,
     image: `https://${renderedStorageBucket}/${tokenIdNumber}.png`,
     animation_url: WEBSITE_HOST_URL + 'api/toys/live/' + tokenIdNumber,
@@ -51,42 +45,3 @@ export default async function handler(req: Request, res: Response): Promise<any>
   res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
   res.status(200).json(data);
 }
-
-export const tokenContract = (): Contract => {
-  const chainId = isProduction ? 1 : 5;
-  const address = contractConfig[chainId].nft;
-  const rpc = rpcUrls[chainId];
-  const provider = new ethers.providers.JsonRpcProvider(rpc as string);
-  const abi = ToyArtifact.abi;
-  const contract = new ethers.Contract(address as string, abi, provider);
-  return contract;
-};
-
-export const validTokenIdNumber = async (
-  tokenId: any,
-  contract: Contract,
-): Promise<number | false> => {
-  const tokenIdNumber = parseInt(tokenId as string);
-
-  if (isLocal || !contract || (tokenIdNumber >= 0 && tokenIdNumber <= 10)) return tokenIdNumber;
-
-  // Get token
-  let tokenIdHasOwner = false;
-  try {
-    tokenIdHasOwner = await contract.ownerOf(tokenIdNumber);
-  } catch (error) {
-    tokenIdHasOwner = false;
-  }
-
-  if (tokenId == 0 || tokenIdHasOwner) return tokenIdNumber;
-  else return false;
-};
-
-export const tokenSoldOut = async (contract: Contract): Promise<boolean> => {
-  const totalSupply = contract.totalSupply();
-  if (totalSupply >= 576) {
-    return true;
-  } else {
-    return false;
-  }
-};

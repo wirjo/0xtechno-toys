@@ -24,10 +24,10 @@ export const getDappConfig = (chainId: number): Config => ({
 
 const contractConfig: Record<number, { nft?: string }> = {
   [ChainId.Goerli]: {
-    nft: '0x5602a187742a492061674f95F6841D1E351277A0',
+    nft: '0x97e544d87840fa59Fb0d57eE0d80c3484858Ff82',
   },
   [ChainId.Mainnet]: {
-    nft: '',
+    nft: '0xeebcfae1beac14c1ab908a7613cc9a5bbeccbd97',
   },
 };
 

@@ -21,7 +21,7 @@ const SaleShowcase = ({ id }: any): JSX.Element => {
 export default SaleShowcase;
 
 const LiveImage = ({ id }: any): JSX.Element => {
-  const urlLive = `${WEBSITE_HOST_URL}/api/toys/live/` + id;
+  const urlLive = `${WEBSITE_HOST_URL}/api/toys/live-v1/` + id;
   const [loading, setLoading] = useState(true);
 
   return (

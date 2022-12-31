@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { WEBSITE_HOST_URL } from '../../../../components/layout/Head';
 import puppeteer from 'puppeteer-core';
 import AWS from 'aws-sdk';
-import { validTokenIdNumber, tokenContract } from '../meta/[tokenId]';
+import { validTokenIdNumber, tokenContract } from '../meta-v1/[tokenId]';
 
 export const renderedStorageBucket = 'toys-by-0xtechno.grailers.io';
 
