@@ -28,7 +28,12 @@ export default async function handler(req: Request, res: Response): Promise<any>
     const nftMetadataFetch = await fetch(
       `https://${renderedStorageBucket}/attributes/${tokenIdNumber}.json`,
     );
+
     nftMetadataJson = await nftMetadataFetch.json();
+
+    for (const key in nftMetadataJson) {
+      nftMetadataJson[key] = String(nftMetadataJson[key]);
+    }
   } catch {
     nftMetadataJson = {};
   }
