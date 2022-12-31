@@ -13,6 +13,7 @@ const SaleShowcase = ({ id }: any): JSX.Element => {
       >
         <LiveImage id={id} />
       </div>
+      <div className="my-2 text-center">Toys #{id}</div>
     </div>
   );
 };
