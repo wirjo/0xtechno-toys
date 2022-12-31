@@ -6,9 +6,9 @@
 /* Common Elements */
 
 body {
-  font-family: 'Source Sans Pro', serif;
+  font-family: 'Kosugi Maru', serif;
   font-weight: 300 !important;
-  background-color: #efefef;
+  background-color: rgb(105,132,147);
   color: #000;
 }
 

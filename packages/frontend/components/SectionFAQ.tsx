@@ -58,7 +58,11 @@ const Section = (): JSX.Element => {
 
   return (
     <>
-      <section id="section-about" className="bg-white border-t-8 border-b-8 border-black">
+      <section
+        id="section-about"
+        className="border-t-8 border-b-8 border-black"
+        style={{ backgroundColor: '#FFFE03' }}
+      >
         <div className="container max-w-screen-lg mx-auto text-center py-20 px-5">
           <div className="mb-3 text-3xl font-bold uppercase">
             <b>Toys by 0xTechno</b>
@@ -66,7 +70,7 @@ const Section = (): JSX.Element => {
           <div className="mx-auto text-center">{nftDescription}</div>
         </div>
       </section>
-      <section id="section-faq" className="overflow-hidden">
+      <section id="section-faq" className="overflow-hidden" style={{ backgroundColor: '#cd2826' }}>
         <div className="container max-w-screen-lg mx-auto text-center pt-20 px-5">
           <div className="text-3xl font-bold">FAQ</div>
 
