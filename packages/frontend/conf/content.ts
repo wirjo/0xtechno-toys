@@ -29,4 +29,4 @@ export const openseaRoyaltyFees = 10; // 1-10%
 export const openseaUrl = 'https://opensea.io/collection/' + openseaCollectionSlug;
 
 const contractAddress = contractConfig[1].nft;
-export const sansaUrl = `https://collections/63a28e2455d1d0a655f4d490/${contractAddress}`;
+export const sansaUrl = `https://sansa.xyz/collections/${contractAddress}`;

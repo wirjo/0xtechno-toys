@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { discordUrl, twitterUrl, openseaUrl } from '../conf/content';
+import { discordUrl, twitterUrl, openseaUrl, sansaUrl } from '../conf/content';
 import Image from 'next/image';
 import LogoOpenSea from '../../frontend/public/images/logo-opensea.svg';
 import LogoSansa from '../../frontend/public/images/logo-sansa.svg';
