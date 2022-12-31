@@ -1,3 +1,5 @@
+import contractConfig from './config';
+
 export const siteTitle = 'Toys by 0xTechno';
 export const siteTagline = 'Limited collection NFTs';
 export const siteDescription = 'Toys by 0xTechno is a limited collection of NFTs';
@@ -25,3 +27,6 @@ export const openseaCollectionLargeImage = siteUrl + 'images/collection-large.pn
 export const royaltiesAddress = '';
 export const openseaRoyaltyFees = 10; // 1-10%
 export const openseaUrl = 'https://opensea.io/collection/' + openseaCollectionSlug;
+
+const contractAddress = contractConfig[1].nft;
+export const sansaUrl = `https://collections/63a28e2455d1d0a655f4d490/${contractAddress}`;

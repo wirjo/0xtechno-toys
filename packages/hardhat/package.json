@@ -29,7 +29,8 @@
     "compile": "NODE_ENV=rinkeby npx hardhat compile",
     "deploy": "NODE_ENV=localhost npx hardhat run scripts/deploy.ts --network localhost",
     "deploy:goerli": "NODE_ENV=goerli npx hardhat run scripts/deploy.ts --network goerli",
-    "deploy:mainnet": "NODE_ENV=mainnet npx hardhat run scripts/deploy.ts --network mainnet"
+    "deploy:mainnet": "NODE_ENV=mainnet npx hardhat run scripts/deploy.ts --network mainnet",
+    "getTokenIds": "NODE_ENV=mainnet npx hardhat run scripts/getTokenIds.ts --network mainnet"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.2.0",
