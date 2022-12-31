@@ -15,7 +15,7 @@ const DappElement = ({
 
   const isCorrectChain = chainId === currentNetworkChainId;
   const correctNetworkName =
-    currentNetworkChainId == ChainId.Rinkeby ? 'Rinkeby Test Network' : 'Ethereum Mainnet';
+    currentNetworkChainId == ChainId.Goerli ? 'Goerli Test Network' : 'Ethereum Mainnet';
 
   const noticeClass = 'bg-black text-white p-4 rounded-sm text-md mb-10';
 
@@ -29,7 +29,7 @@ const DappElement = ({
 
   const ErrorSmartContract = () => (
     <div className={noticeClass}>
-      <p className="text-center">Error: smart contract is not available</p>
+      <p className="text-center">Coming soon. Please stay tuned.</p>
     </div>
   );
 

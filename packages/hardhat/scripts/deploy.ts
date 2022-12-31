@@ -51,7 +51,7 @@ async function main() {
 
   /**
     * If above does not work..., Verify using CLI for reference:
-    * NODE_ENV=rinkeby npx hardhat verify --network rinkeby 0x23d3638b9a34226ec5f0b56d5eccffdf6ed48c19 "Radioactive Ape" "rxAPE" "0xf57b2c51ded3a29e6891aba85459d600256cf317" 
+    * NODE_ENV=goerli npx hardhat verify --network goerli 0xd9AD1908dA692f5A054212c242C864709a1ec1fb "Toys by 0xTechno" "TOY" "0xf57b2c51ded3a29e6891aba85459d600256cf317" 
     * NODE_ENV=mainnet npx hardhat verify --network mainnet 0x5a817e0db5712ababd75c6037bf5c83d87c79d19 "Radioactive Ape" "rxAPE" "0xa5409ec958c83c3f309868babaca7c86dcb077c1" 
     *   
   */
