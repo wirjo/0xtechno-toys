@@ -7,8 +7,6 @@ import { nftDescription, nftName } from '../../../../conf/content';
 import { WEBSITE_HOST_URL } from '../../../../components/layout/Head';
 import { renderedStorageBucket } from '../render/[tokenId]';
 
-const maxSupply = 576;
-
 export default async function handler(req: Request, res: Response): Promise<any> {
   const {
     query: { tokenId },
@@ -82,13 +80,4 @@ export const validTokenIdNumber = async (
 
   if (tokenId == 0 || tokenIdHasOwner) return tokenIdNumber;
   else return false;
-};
-
-export const tokenSoldOut = async (contract: Contract): Promise<boolean> => {
-  const totalSupply = contract.totalSupply();
-  if (totalSupply >= maxSupply) {
-    return true;
-  } else {
-    return false;
-  }
 };
