@@ -14,7 +14,6 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
   /*
    * Declare React States
    */
-  const [open, setOpen] = useState(false);
   const { account } = useEthers();
 
   /*
@@ -65,7 +64,9 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
                 Thank you for all your support.<br/><br/>
                 Buy on <a rel="noferrer" className="underline" href={sansaUrl}>Sansa</a> or <a rel="noferrer" className="underline" href={openseaUrl}>OpenSea</a>.<br/><br/>
 
-                <a className="p-3 border border-black cursor-pointer mt-3 hover:bg-black hover:text-white inline-block" onClick={()=> { setRandToy(randomIntFromInterval(1, 569)) }}><FontAwesomeIcon icon="wave-square"></FontAwesomeIcon> Surf Collection #{randToy}</a>
+                <a className="p-3 border border-black cursor-pointer mt-3 hover:bg-black hover:text-white inline-block" onClick={()=> { setRandToy(randomIntFromInterval(1, 569)) }}><FontAwesomeIcon icon="wave-square"></FontAwesomeIcon> Surf Collection (#{randToy})</a>
+                <br/><br/>
+                Limited collection of 576 NFTs
             </div>
             <div className="flex justify-center max-w-screen-xs">
                 <SaleShowcase id={randToy} />
