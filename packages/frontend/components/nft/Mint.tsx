@@ -1,23 +1,16 @@
 import { utils, Contract } from 'ethers';
 import { TransactionStatus, useContractFunction, useEthers } from '@usedapp/core';
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { nftName } from '../../conf/content';
-import SaleProgressBar from './SaleProgressBar';
-import SaleSupplyCount from './SaleSupplyCount';
+import { nftName, sansaUrl, openseaUrl } from '../../conf/content';
 import SaleContractDisplay from './SaleContractDisplay';
 import SaleTermsModal from './SaleTermsModal';
 import SaleLoading from './SaleLoading';
 import useReadContract from '../../hooks/useReadContract';
-import SaleStatus from './SaleStatus';
 import SaleShowcase from './SaleShowcase';
-import SaleErrorMessage from './SaleErrorMessage';
-import SaleDisclaimer from './SaleDisclaimer';
-import SalePrice from './SalePrice';
 import handleMint from './handleMint';
-import SaleBuyButton from './SaleBuyButton';
 import useWhitelistProof from '../../hooks/useWhitelistProof';
 import useSaleStatus from '../../hooks/useSaleStatus';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
   /*
@@ -146,40 +139,27 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
 
   const displaySale = sale.maxByMint;
 
+  function randomIntFromInterval(min: number, max: number) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  const [randToy, setRandToy] = useState(randomIntFromInterval(1, 569));
+
   if (!displaySale) return <SaleLoading />;
   else
     return (
       <div>
-        <SaleSupplyCount status={sale.status} />
-        <SaleProgressBar status={sale.status} />
+        <div className="md:flex justify-center items-center gap-10">
+            <div className="">
+                <div className="text-3xl mb-3">Mint Closed.</div>
+                Thank you for all your support.<br/><br/>
+                Buy on <a rel="noferrer" className="underline" href={sansaUrl}>Sansa</a> or <a rel="noferrer" className="underline" href={openseaUrl}>OpenSea</a>.<br/><br/>
 
-        <div className="md:flex justify-center items-center gap-10 my-12">
-          <div className="flex justify-center max-w-screen-xs">
-            <SaleShowcase id={sale.totalSupply} />
-          </div>
-
-          <div className="flex flex-col justify-center w-xs text-center px-10">
-            <SaleStatus status={sale.status} />
-            <SalePrice price={sale.price} />
-            <SaleInputNumber
-              name="numberToMint"
-              value={numberToMint}
-              max={sale.maxByMint}
-              disabled={!account || inputDisabled}
-            />
-            <SaleBuyButton handleBuy={handleBuy} loading={inputDisabled} status={sale.status} />
-            <SaleErrorMessage message={errorMessage} />
-            <SaleDisclaimer handleClick={() => setOpen(true)} />
-
-            <div className="block text-sm mt-5">
-              <div>Max. {sale.maxByMint} per mint &nbsp;</div>
-
-              <div className="inline-block font-medium mt-1.5">
-                <FontAwesomeIcon icon={'check-circle'} className="mr-1" /> Gas optimized smart
-                contract
-              </div>
+                <a className="p-3 border border-black cursor-pointer mt-3 hover:bg-black hover:text-white inline-block" onClick={()=> { setRandToy(randomIntFromInterval(1, 569)) }}><FontAwesomeIcon icon="wave-square"></FontAwesomeIcon> Surf Collection #{randToy}</a>
             </div>
-          </div>
+            <div className="flex justify-center max-w-screen-xs">
+                <SaleShowcase id={randToy} />
+            </div>
         </div>
 
         <SaleTermsModal
