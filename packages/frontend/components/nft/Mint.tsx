@@ -59,14 +59,13 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
     return (
       <div>
         <div className="md:flex justify-center items-center gap-10">
-            <div className="">
-                <div className="text-3xl mb-3">Mint Closed.</div>
-                Thank you for all your support.<br/><br/>
+            <div className="mb-12 text-center">
+                <div className="text-3xl mb-3 uppercase">Mint Closed.</div>
+                Thank you for all your support.<br/>
                 Buy on <a rel="noferrer" className="underline" href={sansaUrl}>Sansa</a> or <a rel="noferrer" className="underline" href={openseaUrl}>OpenSea</a>.<br/><br/>
 
                 <a className="p-3 border border-black cursor-pointer mt-3 hover:bg-black hover:text-white inline-block" onClick={()=> { setRandToy(randomIntFromInterval(1, 569)) }}><FontAwesomeIcon icon="wave-square"></FontAwesomeIcon> Surf Collection (#{randToy})</a>
                 <br/><br/>
-                Limited collection of 576 NFTs
             </div>
             <div className="flex justify-center max-w-screen-xs">
                 <SaleShowcase id={randToy} />
