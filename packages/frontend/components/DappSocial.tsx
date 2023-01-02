@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { discordUrl, twitterUrl, openseaUrl, sansaUrl } from '../conf/content';
+import { twitterUrl, openseaUrl, sansaUrl } from '../conf/content';
 import Image from 'next/image';
 import LogoOpenSea from '../../frontend/public/images/logo-opensea.svg';
 import LogoSansa from '../../frontend/public/images/logo-sansa.svg';
@@ -8,6 +8,7 @@ const DappSocial = (): JSX.Element => {
   return (
     <div className="flex gap-2 socials">
       <div>
+        {/*
         <a rel="noreferrer" target="_blank" href={discordUrl}>
           <FontAwesomeIcon
             icon={['fab', 'discord']}
@@ -17,6 +18,7 @@ const DappSocial = (): JSX.Element => {
             size="lg"
           />
         </a>
+        */}
       </div>
       <div>
         <a rel="noreferrer" target="_blank" href={twitterUrl}>
