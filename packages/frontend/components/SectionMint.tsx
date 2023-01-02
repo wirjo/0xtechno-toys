@@ -1,4 +1,4 @@
-import Mint from '../components/nft/Mint';
+// import Mint from '../components/nft/Mint';
 import DappElement from '../components/DappElement';
 import NftArtifact from '../artifacts/contracts/Toy.sol/Toy.json';
 import { useContract } from '../hooks/useContract';
