@@ -16,9 +16,6 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
   /*
    * Declare React States
    */
-  const [inputDisabled, setInputDisabled] = useState(false);
-  const [numberToMint, setNumberToMint] = useState(1);
-  const [errorMessage, setErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
   const { account } = useEthers();
 
@@ -77,65 +74,6 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
    */
   const mintWhitelistCaller = useContractFunction(contract, 'mintWhitelist', {});
   useEffect(() => handleMintState(mintWhitelistCaller.state), [mintWhitelistCaller.state]);
-
-  /*
-   * Route buy button to the appropriate mint
-   */
-  const handleBuy = () => {
-    return handleMint(
-      sale.saleWhitelistIsActive ? mintWhitelistCaller : mintPublicCaller,
-      handleMintLoading,
-      setErrorMessage,
-      numberToMint,
-      sale.price,
-      sale.maxByMint,
-      sale.saleWhitelistIsActive ? sale.whitelistProof : undefined,
-    );
-  };
-
-  /*
-   * Input Props
-   */
-  const SaleInputNumber = ({
-    name,
-    value,
-    max,
-    disabled,
-  }: {
-    name: string;
-    value: number;
-    max: number;
-    disabled: boolean;
-  }): JSX.Element => {
-    const inputClass =
-      'shadow-sm text-3xl bg-white text-black text-center block w-full border-black';
-
-    const inputProps = {
-      type: 'number',
-      name: name,
-      id: name,
-      placeholder: `Enter 1 - ${max}`,
-      autoComplete: 'off',
-      value: value,
-      onChange: (e: any) => {
-        const { value, maxLength } = e.target;
-        const v = value.slice(0, maxLength);
-        setNumberToMint(parseInt(v));
-      },
-      min: 1,
-      size: 2,
-      maxLength: max.toString().length,
-      max: max,
-      disabled: disabled,
-    };
-
-    return (
-      <div className="mb-5">
-        <p className="mb-2 text-sm">Type amount to mint below</p>
-        <input className={inputClass} {...inputProps} />
-      </div>
-    );
-  };
 
   const displaySale = sale.maxByMint;
 
