@@ -1,13 +1,11 @@
 import { utils, Contract } from 'ethers';
-import { TransactionStatus, useContractFunction, useEthers } from '@usedapp/core';
-import React, { useEffect, useState } from 'react';
-import { nftName, sansaUrl, openseaUrl } from '../../conf/content';
+import { useEthers } from '@usedapp/core';
+import React, {useState } from 'react';
+import { sansaUrl, openseaUrl } from '../../conf/content';
 import SaleContractDisplay from './SaleContractDisplay';
-import SaleTermsModal from './SaleTermsModal';
 import SaleLoading from './SaleLoading';
 import useReadContract from '../../hooks/useReadContract';
 import SaleShowcase from './SaleShowcase';
-import handleMint from './handleMint';
 import useWhitelistProof from '../../hooks/useWhitelistProof';
 import useSaleStatus from '../../hooks/useSaleStatus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -49,32 +47,6 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
   sale.whitelistProof = useWhitelistProof(account ?? '', sale.saleWhitelistIsActive);
   sale.status = useSaleStatus(sale);
 
-  /*
-   * General Mint State Handlers
-   */
-  const handleMintLoading = (): void => {
-    setInputDisabled(true);
-    setErrorMessage('');
-  };
-
-  const handleMintState = (state: TransactionStatus): void => {
-    const { status, errorMessage } = state;
-    if (status != 'Mining') setInputDisabled(false);
-    if (errorMessage) setErrorMessage(errorMessage);
-  };
-
-  /*
-   * Mint Public
-   */
-  const mintPublicCaller = useContractFunction(contract, 'mintPublic', {});
-  useEffect(() => handleMintState(mintPublicCaller.state), [mintPublicCaller.state]);
-
-  /*
-   * Mint Whitelist
-   */
-  const mintWhitelistCaller = useContractFunction(contract, 'mintWhitelist', {});
-  useEffect(() => handleMintState(mintWhitelistCaller.state), [mintWhitelistCaller.state]);
-
   const displaySale = sale.maxByMint;
 
   function randomIntFromInterval(min: number, max: number) { // min and max included 
@@ -100,13 +72,6 @@ const Mint = ({ contract }: { contract: Contract }): JSX.Element => {
             </div>
         </div>
 
-        <SaleTermsModal
-          nftName={nftName}
-          open={open}
-          handleClose={() => {
-            setOpen(false);
-          }}
-        />
         <SaleContractDisplay address={contract.address} daoAddress={sale.daoAddress} />
       </div>
     );
